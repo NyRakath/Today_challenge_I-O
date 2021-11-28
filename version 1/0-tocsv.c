@@ -9,7 +9,9 @@ void copy_file(const char *fileone, char *filetwo)
 {
 	ssize_t file_rd, file_wr;
 	int fd_1, fd_2, f_cls1, f_cls2;
-	char buf[BUFRSIZE];
+	/*char buf[BUFRSIZE];*/
+	char buf2[4];
+	char spc[2] = "; ";
 	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
 	fd_1 = open(fileone, O_RDONLY);
@@ -25,9 +27,11 @@ void copy_file(const char *fileone, char *filetwo)
 		exit(99);
 	}
 	file_rd = 1;
-	while (file_rd > 0)
+	if (file_rd > 0)
 	{
-		file_rd = read(fd_1, buf, BUFRSIZE);
+		
+		/*file_rd = read(fd_1, buf, BUFRSIZE);*/
+		file_rd = read(fd_1, buf2, 4);
 		if (file_rd == -1)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", fileone);
@@ -35,7 +39,8 @@ void copy_file(const char *fileone, char *filetwo)
 		}
 		if (file_rd > 0)
 		{
-			file_wr = write(fd_2, buf, file_rd);
+			file_wr = write(fd_2, buf2, file_rd);
+			file_wr = write(fd_2, spc, 2);
 			if (file_wr == -1)
 			{
 				dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filetwo);
