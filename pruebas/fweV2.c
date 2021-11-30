@@ -12,7 +12,7 @@ int main(void)
 {
     pid_t child_pid;
     int status, i;
-    char *argv[] = {"/bin/ls", "-l", "/tmp/", NULL};
+    char *argv[] = {"/bin/ls", "", "/root/Today_challenge_I-O/pruebas", NULL};
 
     for(i = 1; i <= 5; i++)
     {
@@ -26,6 +26,6 @@ int main(void)
         execve(argv[0], argv, NULL);
     else
         wait(&status);
-    }
+    } 
     return (0);
 }

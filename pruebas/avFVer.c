@@ -5,16 +5,15 @@ int main(int argc, char **av)
 {
     (void)argc;
     char *line;
-    int counter = 0;
+    int count = 0;
     int n_chars = 0;
     n_chars = strlen(*av);
 
-    while (av)   
+    for (count = 0; av; count++ )
     {
-        line = av[counter];
-       /* printf("%s", line); */
-        counter++;
-        if (counter <= n_chars)
+        line = av[count];
+        printf("%s", line);
+        if (count <= n_chars)
         {
             printf(" ");
         }
@@ -25,6 +24,6 @@ int main(int argc, char **av)
     }
     printf("\n");
     printf("%d\n",n_chars);
-    printf("%d\n",counter);
+    printf("%d\n",count);
     return (0);
 }
