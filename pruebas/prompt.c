@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -11,10 +12,10 @@ int main()
     {
         printf("$ ");
         bytes_read = getline(&string, &n_line, stdin);
-
+        
         printf("number of bytes: %d\n", bytes_read);
         printf("entered string: %s", string);
     }
-
+    free(string);
     return (0);
 }
