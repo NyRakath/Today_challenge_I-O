@@ -11,6 +11,7 @@ int main(void)
     char *env = "PATH";
     
     aa = getenv(env);
+
 	printf("%s", aa);
 	return (0);
 

@@ -10,18 +10,20 @@ char *_getenv(const char *name)
     int i = 0;
     char **envi = __environ;
     char *str_compare = NULL;
-    
+
     while (envi[i])
     {
-	printf("env[i] : %s\n", envi[i]);
-	str_compare = strtok(envi[i], "=");
-	printf("strtok : %s\n", str_compare);
-	printf("name getenv : %s\n", name);
-	if (str_compare == name)
-	{
-		printf("env: %s\n", envi[i]);
-		return (envi[i]);
-	}
+        printf("env[i] : %s\n", envi[i]);
+        str_compare = strtok(envi[i], "=");
+        printf("strtok : %s\n", str_compare);
+        printf("name getenv : %s\n", name);
+
+        if (str_compare == name)
+        {
+            str_compare = strtok(NULL, "=");
+                printf("%s\n", str_compare);
+                return (str_compare);
+        }
         i++;
     }
     return (NULL);
