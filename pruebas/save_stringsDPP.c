@@ -6,41 +6,59 @@
 #include <string.h>
 #define buffSTD 64
 
-char **_token_after(char *path)
+int _setenv(char *name, const char *value, int overwrite)
 {
-    int buff_std = buffSTD, i = 0;
-    char *tokens = NULL;
-    char **arry = malloc(sizeof (char *) * buff_std);
-    
-    if (arry == NULL)
-	    exit(-1);
+	int i = 0;
+	char **environ = __environ;
+	char *buff = NULL;
 
-    for (; (tokens = strtok(path, ":")); path = NULL, i++)
-    {
-        printf("%s\n", tokens);
-	arry[i] = tokens;
-	if (i >= buff_std)
+	name = strcat(name, "=");
+	buff = strcat(name, value);
+
+	printf("%s\n", name);
+	printf("%s\n", buff);
+	for (; environ; i++)
 	{
-		buff_std += buffSTD;
-		arry = realloc(arry,sizeof (char *) * buff_std);
-		if (arry == NULL)
-			exit(-1);
+		if (environ[i] != buff)
+		{
+			environ[i] = buff;
+			printf("%s\n", environ[i]);
+		}
 	}
-	if (tokens == NULL)
-            break;
-    }
-    arry[i] = NULL;
-    return (arry);
+	return (0);
 }
 
+char **_token_after(char *path)
+{
+	int buff_std = buffSTD, i = 0;
+	char *tokens = NULL;
+	char **arry = malloc(sizeof(char *) * buff_std);
 
+	if (arry == NULL)
+		exit(-1);
+	for (; (tokens = strtok(path, ":")); path = NULL, i++)
+	{
+		printf("%s\n", tokens);
+		arry[i] = tokens;
+		if (i >= buff_std)
+		{
+			buff_std += buffSTD;
+			arry = realloc(arry, sizeof(char *) * buff_std);
+			if (arry == NULL)
+				exit(-1);
+		}
+		if (tokens == NULL)
+			break;
+	}
+	arry[i] = NULL;
+	return (arry);
+}
 
 char *_getenv(const char *name)
 {
 	int i = 0, dub = 0;
 	char **envi = __environ;
 	char *str_compare = NULL;
-	/* char *env = "PATH";*/
 
 	while (envi[i])
 	{
@@ -60,13 +78,18 @@ int main(void)
 {
 	char *env = "PATH";
 	char *env_geted = NULL;
+	char **tokenized = NULL;
+	char *env_to_set = "HELLO";
+	char *paths_to_set = "/hello/world/guys:/omg";
 	/*char **av = NULL;
-	int i;*/ 
+	int i;*/
 
 	env_geted = _getenv(env);
-	_token_after(env_geted);
+	tokenized = _token_after(env_geted);
 	printf("hoLI");
+	_setenv(env_to_set, paths_to_set, 0);
 	/*for (i = 0; av[i]; i++)
 		printf("%s", av[i]);*/
+	free(tokenized);
 	return (0);
 }
