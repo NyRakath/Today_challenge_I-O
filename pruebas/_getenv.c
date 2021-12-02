@@ -7,22 +7,19 @@
 
 char *_getenv(const char *name)
 {
-    int i = 0;
+    int i = 0, dub = 0;
     char **envi = __environ;
     char *str_compare = NULL;
+   /* char *env = "PATH";*/
 
     while (envi[i])
     {
-        printf("env[i] : %s\n", envi[i]);
         str_compare = strtok(envi[i], "=");
-        printf("strtok : %s\n", str_compare);
-        printf("name getenv : %s\n", name);
-
-        if (str_compare == name)
+	dub = strcmp(str_compare , name);  
+        if (!dub)
         {
-            str_compare = strtok(NULL, "=");
-                printf("%s\n", str_compare);
-                return (str_compare);
+           	str_compare = strtok(NULL, "");
+		return (str_compare);
         }
         i++;
     }
@@ -31,8 +28,8 @@ char *_getenv(const char *name)
 
 int main(void)
 {
-    char *env = "PATH";
+    char *env = "LS_COLORS";
 
-    printf("env: %s\n", _getenv(env));
+    printf("%s\n", _getenv(env));
     return (0);
 }
