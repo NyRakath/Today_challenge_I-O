@@ -8,7 +8,37 @@
 
 int _setenv(const char *name, const char *value, int overwrite)
 {
-    int i = 0;
+	
+	char **environ = __environ;
+	char result[100];
+	int i = 0;
+	strcpy(result, name);
+	strcat(result, "=");
+	strcat(result, value);
+	
+	for (;environ[i]; i++)
+    	{
+        /*str_compare = strtok(envi[i], "=");*/
+        /*dub = strcmp(str_compare, name);*/
+        /*if (!dub)
+        {
+            str_compare = strtok(NULL, "");
+            return (str_compare);
+        }*/
+        }
+	environ[i + 1] = result;
+	i += 1;
+	printf("%s\n", environ[i]);
+	for (i = 0;environ[i]; i++)
+		printf("%s\n", environ[i]);
+	printf("%d\n", i);
+
+
+	
+
+	/*printf("%s\n", name); */
+	/* nn = strcat(name, "="); */
+  /*  int i = 0;
     char **environ = __environ;
     char *buff = NULL;
 
@@ -25,6 +55,7 @@ int _setenv(const char *name, const char *value, int overwrite)
             printf("%s\n", environ[i]);
         }
     }
+    return (0); */
     return (0);
 }
 
@@ -81,7 +112,6 @@ int main(void)
     /*char **tokenized = NULL;*/
     char *env_to_set = "HELLO";
     char *paths_to_set = "/hello/world/guys:/omg";
-    printf("Holi");
     /*env_geted = _getenv(env);*/
     /*tokenized = _token_after(env_geted);*/
 

@@ -17,6 +17,11 @@ int main() /* *[] */
 	{
 		printf("$ ");
 		bytes_read = getline(&string, &n_line, stdin);
+		if (string == NULL)
+		{
+			free(string);
+			free(n_line);
+		}
 
 		/*cpy = strdup(string);*/
 
@@ -41,6 +46,7 @@ int main() /* *[] */
 		/* test valgrint */
 	} while (1);
 	free(string);
+	free(n_line);
 	/* free 3 allocs - 2 frees */
 	return (bytes_read);
 }
